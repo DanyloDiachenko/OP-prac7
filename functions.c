@@ -119,12 +119,12 @@ void getAndValidateEpsilon(double *epsilon)
     } while (*epsilon < MIN_EPSILON || *epsilon > MAX_EPSILON);
 }
 
-void getAndValidateY(double *y)
+void getAndValidateY(int *y)
 {
     do
     {
         printf("Enter the Y value from %d to %d: ", MIN_Y, MAX_Y);
-        if (scanf("%lf", y) != 1)
+        if (scanf("%d", y) != 1)
         {
             printf("Invalid input for Y. Please enter a valid number.\n");
             fflush(stdin);
@@ -170,12 +170,20 @@ int getDecimalPlaces(double epsilon)
     return decimalPlaces;
 }
 
-double getTrigonometricFraction(double x, double y) {
-    return cos(y / x) - 2 * sin(1.0 / x) + 1.0 / x;
+double getTrigonometricFraction(double x, int y) {
+    if (x == 0) {
+        printf("Division by zero in equation!\n");
+        return NAN;
+    }
+    return cos((double)y / x) - 2 * sin(1.0 / x) + 1.0 / x;
 }
 
-double getTrigonometricLogarithm(double x, double y) {
-    return sin(log(x)) - cos(log(x)) + y * log(x);
+double getTrigonometricLogarithm(double x, int y) {
+    if (x <= 0) {
+        printf("Invalid log input in equation!\n");
+        return NAN;
+    }
+    return sin(log(x)) - cos(log(x)) + (double)y * log(x);
 }
 
 double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon) {

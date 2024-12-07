@@ -12,7 +12,7 @@ int main()
 
     do
     {
-        double y = 0.0;
+        int y = 0;
         double leftRangeValue = 0;
         double rightRangeValue = 0;
         double epsilon = 0.0;

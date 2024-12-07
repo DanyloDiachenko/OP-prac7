@@ -4,8 +4,8 @@
 #define MIN_RANGE_LIMIT -100000
 #define MAX_RANGE_LIMIT 100000
 
-#define MIN_Y -100000
-#define MAX_Y 100000
+#define MIN_Y -100
+#define MAX_Y 100
 
 #define MIN_EPSILON 1e-12
 #define MAX_EPSILON 1e-1
