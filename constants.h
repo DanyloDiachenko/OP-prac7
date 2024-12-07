@@ -7,10 +7,13 @@
 #define MIN_EPSILON 1e-12
 #define MAX_EPSILON 1e-1
 
+#define EPSILON_FOR_NEWTON 1e-10
+
 enum SolveEquationMethod {
     HALF_DIVIDING = 1,
     NEWTON = 2,
 };
+
 enum EquationType {
     TRIGONOMETRIC_FRACTIONS = 1,
     TRIGONOMETRIC_LOGARITHM = 2,

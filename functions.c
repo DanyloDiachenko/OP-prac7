@@ -1,6 +1,6 @@
 void getAndValidateEquationType(enum EquationType *equationType) {
     do {
-        printf("Enter the equation type to solve method '1' - 1) '2' - 2): ");
+        printf("Enter the equation type to solve: '1' - 1) '2' - 2): ");
 
         char equationTypeInput = getchar();
         fflush(stdin);
@@ -44,14 +44,14 @@ void getAndValidateEquationSolvingMethod(enum SolveEquationMethod *solvingMethod
     } while (*solvingMethod == 0);
 }
 
-void getAndValidateRange(int *leftRangeValue, int *rightRangeValue)
+void getAndValidateRange(double *leftRangeValue, double *rightRangeValue)
 {
     bool isValid = false;
 
     do
     {
         printf("Enter the left range value, less than right (between %d and %d): ", MIN_RANGE_LIMIT, MAX_RANGE_LIMIT);
-        isValid = scanf("%d", leftRangeValue);
+        isValid = scanf("%lf", leftRangeValue);
         fflush(stdin);
 
         if (!isValid)
@@ -72,7 +72,7 @@ void getAndValidateRange(int *leftRangeValue, int *rightRangeValue)
     do
     {
         printf("Enter the right range value, greater than left (between %d and %d): ", MIN_RANGE_LIMIT, MAX_RANGE_LIMIT);
-        isValid = scanf("%d", rightRangeValue);
+        isValid = scanf("%lf", rightRangeValue);
         fflush(stdin);
 
         if (!isValid)
@@ -147,4 +147,53 @@ int getDecimalPlaces(double epsilon)
     }
 
     return decimalPlaces;
+}
+
+double getTrigonometricFraction(double x) {
+    return cos(1.0 / x) - 2 * sin(1.0 / x) + 1.0 / x;
+}
+
+double getTrigonometricLogarithm(double x) {
+    return sin(log(x)) - cos(log(x)) + log(x);
+}
+
+double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon) {
+    do {
+        double middle = (left + right) / 2.0;
+        double fLeft = solveEquation(left);
+        double fMiddle = solveEquation(middle);
+
+        if (fLeft * fMiddle <= 0) {
+            right = middle;
+        } else {
+            left = middle;
+        }
+    } while (fabs(right - left) > epsilon);
+
+    return (left + right) / 2.0;
+}
+
+double derivative(double (*function)(double), double x) {
+    return (function(x + EPSILON_FOR_NEWTON) - function(x)) / EPSILON_FOR_NEWTON;
+}
+
+double getResultByNewton(double (*function)(double), double start, double epsilon) {
+    double x = start;
+    double delta = 0.0;
+
+    do {
+        double fValue = function(x);
+        double fDerivative = derivative(function, x);
+
+        if (fabs(fDerivative) < 1e-10) {
+            printf("Derivative is too small. Method cannot proceed.\n");
+            return NAN;
+        }
+
+        delta = fValue / fDerivative;
+        x = x - delta;
+
+    } while (fabs(delta) > epsilon);
+
+    return x;
 }
