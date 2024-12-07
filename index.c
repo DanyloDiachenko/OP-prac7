@@ -5,13 +5,14 @@ int main()
     bool continueProgram = true;
 
     printf("Welcome! This program solves equations equations!\n"
-           "1) cos(1/x) - 2sin(1/x) + 1/x = 0\n"
-           "2) sin[ln(x)] - cos[ln(x)] + ln(x) = 0\n"
+           "1) cos(y/x) - 2sin(1/x) + 1/x = 0\n"
+           "2) sin[ln(x)] - cos[ln(x)] + y*ln(x) = 0\n"
            "\n"
            );
 
     do
     {
+        double y = 0.0;
         double leftRangeValue = 0;
         double rightRangeValue = 0;
         double epsilon = 0.0;
@@ -21,6 +22,7 @@ int main()
 
         getAndValidateEquationType(&equationType);
         getAndValidateEquationSolvingMethod(&solvingMethod);
+        getAndValidateY(&y);
         getAndValidateRange(&leftRangeValue, &rightRangeValue);
         getAndValidateEpsilon(&epsilon);
 
@@ -70,7 +72,7 @@ int main()
         }
 
         if (!isnan(result)) {
-            printf("Result x=%.10f\n", result);
+            printf("Result x=%.*lf\n", getDecimalPlaces(epsilon), result);
         } else {
             printf("Failed to find solution. Check your inputs or try another method.\n");
         }

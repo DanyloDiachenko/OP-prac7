@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 void getAndValidateEquationType(enum EquationType *equationType);
+void getAndValidateY(double *y);
 void getAndValidateEquationSolingMethod(enum SolveEquationMethod *solvingMethod);
 void getAndValidateRange(double *leftRangeValue, double *rightRangeValue);
 void getAndValidateEpsilon(double *epsilon);
@@ -12,7 +13,7 @@ int getDecimalPlaces(double epsilon);
 double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon);
 double derivative(double (*function)(double), double x);
 double getResultByNewton(double (*function)(double), double start, double epsilon);
-double getTrigonometricFraction(double x);
-double getTrigonometricLogarithm(double x);
+double getTrigonometricFraction(double x, double y);
+double getTrigonometricLogarithm(double x, double y);
 
 #endif // FUNCTIONS_H

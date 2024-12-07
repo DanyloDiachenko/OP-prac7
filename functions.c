@@ -119,6 +119,27 @@ void getAndValidateEpsilon(double *epsilon)
     } while (*epsilon < MIN_EPSILON || *epsilon > MAX_EPSILON);
 }
 
+void getAndValidateY(double *y)
+{
+    do
+    {
+        printf("Enter the Y value from %d to %d: ", MIN_Y, MAX_Y);
+        if (scanf("%lf", y) != 1)
+        {
+            printf("Invalid input for Y. Please enter a valid number.\n");
+            fflush(stdin);
+
+            continue;
+        }
+        fflush(stdin);
+
+        if (*y < MIN_Y || *y > MAX_Y)
+        {
+            printf("Y value is out of range. Please enter a value between %d and %d.\n", MIN_Y, MAX_Y);
+        }
+    } while (*y < MIN_Y || *y > MAX_Y);
+}
+
 bool askToContinue()
 {
     printf("Do you want to run program again? Press 'y' to continue or any other key to exit: ");
@@ -149,24 +170,24 @@ int getDecimalPlaces(double epsilon)
     return decimalPlaces;
 }
 
-double getTrigonometricFraction(double x) {
-    return cos(1.0 / x) - 2 * sin(1.0 / x) + 1.0 / x;
+double getTrigonometricFraction(double x, double y) {
+    return cos(y / x) - 2 * sin(1.0 / x) + 1.0 / x;
 }
 
-double getTrigonometricLogarithm(double x) {
-    return sin(log(x)) - cos(log(x)) + log(x);
+double getTrigonometricLogarithm(double x, double y) {
+    return sin(log(x)) - cos(log(x)) + y * log(x);
 }
 
 double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon) {
     do {
-        double middle = (left + right) / 2.0;
+        double x = (left + right) / 2.0;
         double fLeft = solveEquation(left);
-        double fMiddle = solveEquation(middle);
+        double fMiddle = solveEquation(x);
 
-        if (fLeft * fMiddle <= 0) {
-            right = middle;
+        if (fLeft * fMiddle > 0) {
+            left = x;
         } else {
-            left = middle;
+            right = x;
         }
     } while (fabs(right - left) > epsilon);
 
@@ -177,8 +198,8 @@ double derivative(double (*function)(double), double x) {
     return (function(x + EPSILON_FOR_NEWTON) - function(x)) / EPSILON_FOR_NEWTON;
 }
 
-double getResultByNewton(double (*function)(double), double start, double epsilon) {
-    double x = start;
+double getResultByNewton(double (*function)(double), double right, double epsilon) {
+    double x = right;
     double delta = 0.0;
 
     do {
@@ -192,7 +213,6 @@ double getResultByNewton(double (*function)(double), double start, double epsilo
 
         delta = fValue / fDerivative;
         x = x - delta;
-
     } while (fabs(delta) > epsilon);
 
     return x;

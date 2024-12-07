@@ -1,8 +1,11 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define MIN_RANGE_LIMIT -1000
-#define MAX_RANGE_LIMIT 1000
+#define MIN_RANGE_LIMIT -100000
+#define MAX_RANGE_LIMIT 100000
+
+#define MIN_Y -100000
+#define MAX_Y 100000
 
 #define MIN_EPSILON 1e-12
 #define MAX_EPSILON 1e-1
