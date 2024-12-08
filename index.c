@@ -1,17 +1,23 @@
 #include "./includes.h"
 
-int main()
-{
+static int globalY;
+
+double solveTrigonometricFraction(double x) {
+    return getTrigonometricFraction(x, globalY);
+}
+
+double solveTrigonometricLogarithm(double x) {
+    return getTrigonometricLogarithm(x, globalY);
+}
+
+int main() {
     bool continueProgram = true;
 
-    printf("Welcome! This program solves equations equations!\n"
+    printf("Welcome! This program solves equations!\n"
            "1) cos(y/x) - 2sin(1/x) + 1/x = 0\n"
-           "2) sin[ln(x)] - cos[ln(x)] + y*ln(x) = 0\n"
-           "\n"
-           );
+           "2) sin[ln(x)] - cos[ln(x)] + y*ln(x) = 0\n\n");
 
-    do
-    {
+    do {
         int y = 0;
         double leftRangeValue = 0;
         double rightRangeValue = 0;
@@ -26,17 +32,17 @@ int main()
         getAndValidateRange(&leftRangeValue, &rightRangeValue);
         getAndValidateEpsilon(&epsilon);
 
+        globalY = y;  // Устанавливаем глобальный параметр y
+
         switch (solvingMethod) {
             case HALF_DIVIDING: {
                 switch (equationType) {
                     case TRIGONOMETRIC_FRACTIONS: {
-                        result = getResultByHalDividing(getTrigonometricFraction, leftRangeValue,
-                            rightRangeValue, epsilon);
+                        result = getResultByHalDividing(solveTrigonometricFraction, leftRangeValue, rightRangeValue, epsilon);
                         break;
                     }
                     case TRIGONOMETRIC_LOGARITHM: {
-                        result = getResultByHalDividing(getTrigonometricLogarithm, leftRangeValue,
-                            rightRangeValue, epsilon);
+                        result = getResultByHalDividing(solveTrigonometricLogarithm, leftRangeValue, rightRangeValue, epsilon);
                         break;
                     }
                     default: {
@@ -50,11 +56,11 @@ int main()
             case NEWTON: {
                 switch (equationType) {
                     case TRIGONOMETRIC_FRACTIONS: {
-                        result = getResultByNewton(getTrigonometricFraction, rightRangeValue, epsilon);
+                        result = getResultByNewton(solveTrigonometricFraction, rightRangeValue, epsilon);
                         break;
                     }
                     case TRIGONOMETRIC_LOGARITHM: {
-                        result = getResultByNewton(getTrigonometricLogarithm, rightRangeValue, epsilon);
+                        result = getResultByNewton(solveTrigonometricLogarithm, rightRangeValue, epsilon);
                         break;
                     }
                     default: {

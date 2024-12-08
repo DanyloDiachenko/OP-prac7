@@ -175,15 +175,17 @@ double getTrigonometricFraction(double x, int y) {
         printf("Division by zero in equation!\n");
         return NAN;
     }
-    return cos((double)y / x) - 2 * sin(1.0 / x) + 1.0 / x;
+
+    return cos((double) y / x) - 2.0 * sin(1.0 / x) + 1.0 / x;
 }
 
 double getTrigonometricLogarithm(double x, int y) {
     if (x <= 0) {
         printf("Invalid log input in equation!\n");
+
         return NAN;
     }
-    return sin(log(x)) - cos(log(x)) + (double)y * log(x);
+    return sin(log(x)) - cos(log(x)) + (double) y * log(x);
 }
 
 double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon) {
@@ -214,7 +216,7 @@ double getResultByNewton(double (*function)(double), double right, double epsilo
         double fValue = function(x);
         double fDerivative = derivative(function, x);
 
-        if (fabs(fDerivative) < 1e-10) {
+        if (fabs(fDerivative) < EPSILON_FOR_NEWTON) {
             printf("Derivative is too small. Method cannot proceed.\n");
             return NAN;
         }

@@ -10,7 +10,7 @@
 #define MIN_EPSILON 1e-12
 #define MAX_EPSILON 1e-1
 
-#define EPSILON_FOR_NEWTON 1e-10
+#define EPSILON_FOR_NEWTON 1e-15
 
 enum SolveEquationMethod {
     HALF_DIVIDING = 1,
