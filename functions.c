@@ -56,14 +56,14 @@ void getAndValidateEquationSolvingMethod(enum SolveEquationMethod *solvingMethod
     } while (*solvingMethod == 0);
 }
 
-void getAndValidateRange(double *leftRangeValue, double *rightRangeValue)
+void getAndValidateRange(double *rangeStart, double *rangeEnd)
 {
     bool isValid = false;
 
     do
     {
         printf("Enter the left range value, less than right (between %d and %d): ", MIN_RANGE_LIMIT, MAX_RANGE_LIMIT);
-        isValid = scanf("%lf", leftRangeValue);
+        isValid = scanf("%lf", rangeStart);
         fflush(stdin);
 
         if (!isValid)
@@ -73,7 +73,7 @@ void getAndValidateRange(double *leftRangeValue, double *rightRangeValue)
             continue;
         }
 
-        if (*leftRangeValue < MIN_RANGE_LIMIT || *leftRangeValue > MAX_RANGE_LIMIT)
+        if (*rangeStart < MIN_RANGE_LIMIT || *rangeEnd > MAX_RANGE_LIMIT)
         {
             printf("Left range value is out of range. Please enter a value between %d and %d.\n", MIN_RANGE_LIMIT, MAX_RANGE_LIMIT);
 
@@ -84,7 +84,7 @@ void getAndValidateRange(double *leftRangeValue, double *rightRangeValue)
     do
     {
         printf("Enter the right range value, greater than left (between %d and %d): ", MIN_RANGE_LIMIT, MAX_RANGE_LIMIT);
-        isValid = scanf("%lf", rightRangeValue);
+        isValid = scanf("%lf", rangeEnd);
         fflush(stdin);
 
         if (!isValid)
@@ -94,13 +94,13 @@ void getAndValidateRange(double *leftRangeValue, double *rightRangeValue)
             continue;
         }
 
-        if (*rightRangeValue <= *leftRangeValue)
+        if (*rangeEnd <= *rangeStart)
         {
             printf("Invalid input for right range value. It must be greater than left range value.\n");
 
             isValid = false;
         }
-        else if (*rightRangeValue < MIN_RANGE_LIMIT || *rightRangeValue > MAX_RANGE_LIMIT)
+        else if (*rangeEnd < MIN_RANGE_LIMIT || *rangeEnd > MAX_RANGE_LIMIT)
         {
             printf("Right range value is out of range. Please enter a value between %d and %d.\n", MIN_RANGE_LIMIT, MAX_RANGE_LIMIT);
 

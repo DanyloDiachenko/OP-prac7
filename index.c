@@ -26,11 +26,21 @@ int main()
         if (solvingMethod == 1 && (solveTrigonometricFractionEquation(rangeStart, (double)y) * solveTrigonometricFractionEquation(rangeEnd, (double)y) > 0))
         {
             printf("There are no results on this range or their number greater than 1.\n");
+            printf("\n");
+            continueProgram = askToContinue();
+
+            if (!continueProgram) break;
+
             continue;
         }
         if (solvingMethod == 2 && (solveTrigonometricLogarithmEquation(rangeStart, (double)y) * solveTrigonometricLogarithmEquation(rangeEnd, (double)y) > 0))
         {
             printf("There are no results on this range or their number greater than 1.\n");
+            printf("\n");
+            continueProgram = askToContinue();
+
+            if (!continueProgram) break;
+
             continue;
         }
 
@@ -54,6 +64,11 @@ int main()
         default:
         {
             printf("Invalid Equation type!");
+            printf("\n");
+            continueProgram = askToContinue();
+
+            if (!continueProgram) break;
+
             continue;
         }
         }
@@ -75,8 +90,23 @@ int main()
         default:
         {
             printf("Invalid Solving Method type!");
+            printf("\n");
+            continueProgram = askToContinue();
+
+            if (!continueProgram) break;
+
             continue;
         }
+        }
+
+        if (isnan(result) || isinf(result)) {
+            printf("Invalid result encountered (NaN or infinity). Please check your input or range.\n");
+            printf("\n");
+            continueProgram = askToContinue();
+
+            if (!continueProgram) break;
+
+            continue;
         }
 
         printf("Result: x = %.*lf\n", getDecimalPlaces(epsilon), truncateNumber(result, getDecimalPlaces(epsilon)));

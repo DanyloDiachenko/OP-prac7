@@ -3,7 +3,7 @@
 
 void getAndValidateEquationType(enum EquationType *equationType);
 void getAndValidateEquationSolvingMethod(enum SolveEquationMethod *solvingMethod);
-void getAndValidateRange(double *leftRangeValue, double *rightRangeValue);
+void getAndValidateRange(double *rangeStart, double *rangeEnd);
 void getAndValidateEpsilon(double *epsilon);
 bool askToContinue();
 double truncateNumber(double value, int decimalPlaces);
