@@ -185,6 +185,7 @@ double getTrigonometricLogarithm(double x, int y) {
 
         return NAN;
     }
+
     return sin(log(x)) - cos(log(x)) + (double) y * log(x);
 }
 

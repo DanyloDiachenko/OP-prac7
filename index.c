@@ -32,7 +32,7 @@ int main() {
         getAndValidateRange(&leftRangeValue, &rightRangeValue);
         getAndValidateEpsilon(&epsilon);
 
-        globalY = y;  // Устанавливаем глобальный параметр y
+        globalY = y;
 
         switch (solvingMethod) {
             case HALF_DIVIDING: {
