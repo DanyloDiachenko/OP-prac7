@@ -82,7 +82,7 @@ int main()
         }
         }
 
-        printf("Result: x = %.*lf\n", getDecimalPlaces(epsilon), result);
+        printf("Result: x = %.*lf\n", getDecimalPlaces(epsilon), truncateNumber(result, getDecimalPlaces(epsilon)));
         printf("\n");
 
         continueProgram = askToContinue();

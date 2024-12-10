@@ -172,15 +172,7 @@ double truncateNumber(double value, int decimalPlaces)
 
 int getDecimalPlaces(double epsilon)
 {
-    int decimalPlaces = 0;
-
-    while (epsilon < 1.0 && decimalPlaces < 15)
-    {
-        epsilon *= 10.0;
-        decimalPlaces++;
-    }
-
-    return decimalPlaces;
+    return -log10(epsilon);
 }
 
 double solveTrigonometricFractionEquation(double x, double y)
