@@ -2,11 +2,11 @@
 
 static int globalY;
 
-double solveTrigonometricFraction(double x) {
+double getTrigonometricFractionWrapper(double x) {
     return getTrigonometricFraction(x, globalY);
 }
 
-double solveTrigonometricLogarithm(double x) {
+double getTrigonometricLogarithmWrapper(double x) {
     return getTrigonometricLogarithm(x, globalY);
 }
 
@@ -38,11 +38,11 @@ int main() {
             case HALF_DIVIDING: {
                 switch (equationType) {
                     case TRIGONOMETRIC_FRACTIONS: {
-                        result = getResultByHalDividing(solveTrigonometricFraction, leftRangeValue, rightRangeValue, epsilon);
+                        result = getResultByHalDividing(getTrigonometricFractionWrapper, leftRangeValue, rightRangeValue, epsilon);
                         break;
                     }
                     case TRIGONOMETRIC_LOGARITHM: {
-                        result = getResultByHalDividing(solveTrigonometricLogarithm, leftRangeValue, rightRangeValue, epsilon);
+                        result = getResultByHalDividing(getTrigonometricLogarithmWrapper, leftRangeValue, rightRangeValue, epsilon);
                         break;
                     }
                     default: {
@@ -56,11 +56,11 @@ int main() {
             case NEWTON: {
                 switch (equationType) {
                     case TRIGONOMETRIC_FRACTIONS: {
-                        result = getResultByNewton(solveTrigonometricFraction, rightRangeValue, epsilon);
+                        result = getResultByNewton(getTrigonometricFractionWrapper, rightRangeValue, epsilon);
                         break;
                     }
                     case TRIGONOMETRIC_LOGARITHM: {
-                        result = getResultByNewton(solveTrigonometricLogarithm, rightRangeValue, epsilon);
+                        result = getResultByNewton(getTrigonometricLogarithmWrapper, rightRangeValue, epsilon);
                         break;
                     }
                     default: {

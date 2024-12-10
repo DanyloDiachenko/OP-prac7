@@ -15,7 +15,7 @@ double derivative(double (*function)(double), double x);
 double getResultByNewton(double (*function)(double), double start, double epsilon);
 double getTrigonometricFraction(double x, int y);
 double getTrigonometricLogarithm(double x, int y);
-double solveTrigonometricFraction(double x);
-double solveTrigonometricLogarithm(double x);
+double getTrigonometricFractionWrapper(double x);
+double getTrigonometricLogarithmWrapper(double x);
 
 #endif // FUNCTIONS_H
