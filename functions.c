@@ -212,7 +212,8 @@ double solveByHalfDividing(double (*equationFunc)(double, double), double rangeS
 
 double solveByNewton(double (*equationFunc)(double, double), double (*derivative)(double, double), double x0, double y, double epsilon)
 {
-    double x1, delta;
+    double x1 = 0.0;
+    double delta = 0.0;
 
     do
     {

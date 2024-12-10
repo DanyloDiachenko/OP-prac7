@@ -1,7 +1,4 @@
 #include "./includes.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 int main()
 {
@@ -61,7 +58,7 @@ int main()
         }
         }
 
-        double result;
+        double result = 0.0;
 
         switch (solvingMethod)
         {
