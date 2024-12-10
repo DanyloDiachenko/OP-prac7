@@ -1,45 +1,57 @@
-void getAndValidateEquationType(enum EquationType *equationType) {
-    do {
+void getAndValidateEquationType(enum EquationType *equationType)
+{
+    do
+    {
         printf("Enter the equation type to solve: '1' - 1) '2' - 2): ");
 
         char equationTypeInput = getchar();
         fflush(stdin);
 
-        switch(equationTypeInput) {
-            case '1': {
-                *equationType = TRIGONOMETRIC_FRACTIONS;
-                break;
-            }
-            case '2': {
-                *equationType = TRIGONOMETRIC_LOGARITHM;
-                break;
-            }
-            default: {
-                printf("Invalid value for equation type. Please enter '1' or '2'.\n");
-            }
+        switch (equationTypeInput)
+        {
+        case '1':
+        {
+            *equationType = TRIGONOMETRIC_FRACTIONS;
+            break;
+        }
+        case '2':
+        {
+            *equationType = TRIGONOMETRIC_LOGARITHM;
+            break;
+        }
+        default:
+        {
+            printf("Invalid value for equation type. Please enter '1' or '2'.\n");
+        }
         }
     } while (*equationType == 0);
 }
 
-void getAndValidateEquationSolvingMethod(enum SolveEquationMethod *solvingMethod) {
-    do {
+void getAndValidateEquationSolvingMethod(enum SolveEquationMethod *solvingMethod)
+{
+    do
+    {
         printf("Enter the equation solving method '1' - Half Dividing, '2' - Newton method: ");
 
         char solvingMethodInput = getchar();
         fflush(stdin);
 
-        switch(solvingMethodInput) {
-            case '1': {
-                *solvingMethod = HALF_DIVIDING;
-                break;
-            }
-            case '2': {
-                *solvingMethod = NEWTON;
-                break;
-            }
-            default: {
-                printf("Invalid value for solving method. Please enter '1' or '2'.\n");
-            }
+        switch (solvingMethodInput)
+        {
+        case '1':
+        {
+            *solvingMethod = HALF_DIVIDING;
+            break;
+        }
+        case '2':
+        {
+            *solvingMethod = NEWTON;
+            break;
+        }
+        default:
+        {
+            printf("Invalid value for solving method. Please enter '1' or '2'.\n");
+        }
         }
     } while (*solvingMethod == 0);
 }
@@ -124,6 +136,7 @@ void getAndValidateY(int *y)
     do
     {
         printf("Enter the Y value from %d to %d: ", MIN_Y, MAX_Y);
+
         if (scanf("%d", y) != 1)
         {
             printf("Invalid input for Y. Please enter a valid number.\n");
@@ -170,61 +183,51 @@ int getDecimalPlaces(double epsilon)
     return decimalPlaces;
 }
 
-double getTrigonometricFraction(double x, int y) {
-    if (x == 0) {
-        printf("Division by zero in equation!\n");
-        return NAN;
+double solveTrigonometricFractionEquation(double x, double y)
+{
+    return cos(y / x) - 2.0 * sin(1.0 / x) + 1.0 / x;
+}
+
+double solveTrigonometricLogarithmEquation(double x, double y)
+{
+    return sin(log(x)) - cos(log(x)) + y * log(x);
+}
+
+double getTrigonometricFractionDerivative(double x, double y)
+{
+    return (solveTrigonometricFractionEquation(x + EPSILON_FOR_NEWTON, y) - solveTrigonometricFractionEquation(x, y)) / EPSILON_FOR_NEWTON;
+}
+
+double getTrigonometricLogarithmDerivative(double x, double y)
+{
+    return (solveTrigonometricLogarithmEquation(x + EPSILON_FOR_NEWTON, y) - solveTrigonometricLogarithmEquation(x, y)) / EPSILON_FOR_NEWTON;
+}
+
+double solveByHalfDividing(double (*equationFunc)(double, double), double rangeStart, double rangeEnd, double y, double epsilon)
+{
+    while (fabs(rangeEnd - rangeStart) > epsilon)
+    {
+        double mid = (rangeStart + rangeEnd) / 2.0;
+
+        if (equationFunc(rangeStart, y) * equationFunc(mid, y) > 0)
+            rangeStart = mid;
+        else
+            rangeEnd = mid;
     }
 
-    return cos((double) y / x) - 2.0 * sin(1.0 / x) + 1.0 / x;
+    return (rangeStart + rangeEnd) / 2.0;
 }
 
-double getTrigonometricLogarithm(double x, int y) {
-    if (x <= 0) {
-        printf("Invalid log input in equation!\n");
+double solveByNewton(double (*equationFunc)(double, double), double (*derivative)(double, double), double x0, double y, double epsilon)
+{
+    double x1, delta;
 
-        return NAN;
-    }
-
-    return sin(log(x)) - cos(log(x)) + (double) y * log(x);
-}
-
-double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon) {
-    do {
-        double x = (left + right) / 2.0;
-        double fLeft = solveEquation(left);
-        double fMiddle = solveEquation(x);
-
-        if (fLeft * fMiddle > 0) {
-            left = x;
-        } else {
-            right = x;
-        }
-    } while (fabs(right - left) > epsilon);
-
-    return (left + right) / 2.0;
-}
-
-double derivative(double (*function)(double), double x) {
-    return (function(x + EPSILON_FOR_NEWTON) - function(x)) / EPSILON_FOR_NEWTON;
-}
-
-double getResultByNewton(double (*function)(double), double right, double epsilon) {
-    double x = right;
-    double delta = 0.0;
-
-    do {
-        double fValue = function(x);
-        double fDerivative = derivative(function, x);
-
-        if (fabs(fDerivative) < EPSILON_FOR_NEWTON) {
-            printf("Derivative is too small. Method cannot proceed.\n");
-            return NAN;
-        }
-
-        delta = fValue / fDerivative;
-        x = x - delta;
+    do
+    {
+        delta = equationFunc(x0, y) / derivative(x0, y);
+        x1 = x0 - delta;
+        x0 = x1;
     } while (fabs(delta) > epsilon);
 
-    return x;
+    return x1;
 }

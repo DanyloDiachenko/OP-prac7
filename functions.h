@@ -2,20 +2,17 @@
 #define FUNCTIONS_H
 
 void getAndValidateEquationType(enum EquationType *equationType);
-void getAndValidateY(int *y);
-void getAndValidateEquationSolingMethod(enum SolveEquationMethod *solvingMethod);
+void getAndValidateEquationSolvingMethod(enum SolveEquationMethod *solvingMethod);
 void getAndValidateRange(double *leftRangeValue, double *rightRangeValue);
 void getAndValidateEpsilon(double *epsilon);
-double getResultByHalDividing();
 bool askToContinue();
 double truncateNumber(double value, int decimalPlaces);
 int getDecimalPlaces(double epsilon);
-double getResultByHalDividing(double (*solveEquation)(double), double left, double right, double epsilon);
-double derivative(double (*function)(double), double x);
-double getResultByNewton(double (*function)(double), double start, double epsilon);
-double getTrigonometricFraction(double x, int y);
-double getTrigonometricLogarithm(double x, int y);
-double getTrigonometricFractionWrapper(double x);
-double getTrigonometricLogarithmWrapper(double x);
+double solveTrigonometricFractionEquation(double x, double y);
+double solveTrigonometricLogarithmEquation(double x, double y);
+double getTrigonometricFractionDerivative(double x, double y);
+double getTrigonometricLogarithmDerivative(double x, double y);
+double solveByHalfDividing(double (*equationFunc)(double, double), double rangeStart, double rangeEnd, double y, double epsilon);
+double solveByNewton(double (*equationFunc)(double, double), double (*derivative)(double, double), double x0, double y, double epsilon);
 
 #endif // FUNCTIONS_H

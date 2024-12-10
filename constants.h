@@ -12,12 +12,14 @@
 
 #define EPSILON_FOR_NEWTON 1e-15
 
-enum SolveEquationMethod {
+enum SolveEquationMethod
+{
     HALF_DIVIDING = 1,
     NEWTON = 2,
 };
 
-enum EquationType {
+enum EquationType
+{
     TRIGONOMETRIC_FRACTIONS = 1,
     TRIGONOMETRIC_LOGARITHM = 2,
 };
