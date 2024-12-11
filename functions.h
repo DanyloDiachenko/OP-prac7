@@ -14,5 +14,6 @@ double getTrigonometricFractionDerivative(double x, double y);
 double getTrigonometricLogarithmDerivative(double x, double y);
 double solveByHalfDividing(double (*equationFunc)(double, double), double rangeStart, double rangeEnd, double y, double epsilon);
 double solveByNewton(double (*equationFunc)(double, double), double (*derivative)(double, double), double x0, double y, double epsilon);
+bool handleContinueWithErrorMessage(char *errorMessage);
 
 #endif // FUNCTIONS_H

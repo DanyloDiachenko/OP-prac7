@@ -224,3 +224,11 @@ double solveByNewton(double (*equationFunc)(double, double), double (*derivative
 
     return x1;
 }
+
+bool handleContinueWithErrorMessage(char *errorMessage)
+{
+    printf("%s\n", errorMessage);
+    printf("\n");
+
+    return askToContinue();
+}
