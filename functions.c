@@ -2,7 +2,7 @@ void getAndValidateEquationType(enum EquationType *equationType)
 {
     do
     {
-        printf("Enter the equation type to solve: '1' - 1) '2' - 2): ");
+        printf("Enter the equation type to solve: '1' - 1) equation '2' - 2) equation: ");
 
         char equationTypeInput = getchar();
         fflush(stdin);
