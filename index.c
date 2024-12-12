@@ -100,7 +100,7 @@ int main()
 
         if (isnan(result) || isinf(result))
         {
-            continueProgram = handleContinueWithErrorMessage("Invalid result is NaN or infinity. Check your input or range and ty agait.");
+            continueProgram = handleContinueWithErrorMessage("Invalid result is NaN or infinity. Check your input or range and try again.");
             if (!continueProgram)
             {
                 break;
