@@ -82,12 +82,12 @@ int main()
             result = solveByHalfDividing(selectedEquation, rangeStart, rangeEnd, y, epsilon);
             break;
         }
-        case NEWTON:
+            case NEWTON:
         {
             result = solveByNewton(selectedEquation, selectedDerivative, rangeEnd, y, epsilon);
             break;
         }
-            {
+            default: {
                 continueProgram = handleContinueWithErrorMessage("Invalid solving method type!");
                 if (!continueProgram)
                 {
