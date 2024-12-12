@@ -23,19 +23,36 @@ int main()
         getAndValidateEquationSolvingMethod(&solvingMethod);
         getAndValidateEpsilon(&epsilon);
 
-        if (solvingMethod == 1 && (solveTrigonometricFractionEquation(rangeStart, (double)y) * solveTrigonometricFractionEquation(rangeEnd, (double)y) > 0))
+        switch (solvingMethod)
         {
-            continueProgram = handleContinueWithErrorMessage("There are no results on this range or their number greater than 1.");
-            if (!continueProgram)
+        case 1:
+            if (solveTrigonometricFractionEquation(rangeStart, (double)y) * solveTrigonometricFractionEquation(rangeEnd, (double)y) > 0)
             {
-                break;
-            };
+                continueProgram = handleContinueWithErrorMessage("There are no results on this range or their number greater than 1.");
+                if (!continueProgram)
+                {
+                    break;
+                }
 
-            continue;
-        }
-        if (solvingMethod == 2 && (solveTrigonometricLogarithmEquation(rangeStart, (double)y) * solveTrigonometricLogarithmEquation(rangeEnd, (double)y) > 0))
-        {
-            continueProgram = handleContinueWithErrorMessage("There are no results on this range or their number greater than 1.");
+                continue;
+            }
+            break;
+
+        case 2:
+            if (solveTrigonometricLogarithmEquation(rangeStart, (double)y) * solveTrigonometricLogarithmEquation(rangeEnd, (double)y) > 0)
+            {
+                continueProgram = handleContinueWithErrorMessage("There are no results on this range or their number greater than 1.");
+                if (!continueProgram)
+                {
+                    break;
+                }
+
+                continue;
+            }
+            break;
+
+        default:
+            continueProgram = handleContinueWithErrorMessage("Invalid solving method!");
             if (!continueProgram)
             {
                 break;
@@ -82,20 +99,21 @@ int main()
             result = solveByHalfDividing(selectedEquation, rangeStart, rangeEnd, y, epsilon);
             break;
         }
-            case NEWTON:
+        case NEWTON:
         {
             result = solveByNewton(selectedEquation, selectedDerivative, rangeEnd, y, epsilon);
             break;
         }
-            default: {
-                continueProgram = handleContinueWithErrorMessage("Invalid solving method type!");
-                if (!continueProgram)
-                {
-                    break;
-                };
+        default:
+        {
+            continueProgram = handleContinueWithErrorMessage("Invalid solving method type!");
+            if (!continueProgram)
+            {
+                break;
+            };
 
-                continue;
-            }
+            continue;
+        }
         }
 
         if (isnan(result) || isinf(result))
